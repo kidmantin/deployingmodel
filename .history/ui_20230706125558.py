@@ -9,13 +9,8 @@ import tensorflow as tf
 
 import pandas as pd 
 import training
-import requests
-import bentoml
-
-BENTO_MODEL_TAG = "audio_commands_model_bento:zqr576qy5kzktmt2"
 
 labels = open(r'C:\Users\Kidma\source\repos\deployingmodel\labels.txt').read().split()
-model_keras = tf.keras.models.load_model(r'C:\Users\Kidma\source\repos\deployingmodel\audio_commands_model_keras')
 
 def plot_spectrogram(spectrogram, ax):
     if len(spectrogram.shape) > 2:
@@ -33,43 +28,36 @@ def plot_spectrogram(spectrogram, ax):
 
 st.title('AYO CHILL')
 uploaded_file = st.file_uploader('audio of command')
-st.write(f'possible labels: {labels}')
+st.write('chill?')
 
 if uploaded_file is not None:
-    uploaded_data, samplerate = sf.read(io.BytesIO(uploaded_file.read()))
-    st.audio(uploaded_data, sample_rate=samplerate)
+    data, samplerate = sf.read(io.BytesIO(uploaded_file.read()))
+    st.audio(data, sample_rate=samplerate)
 
 
     if st.button('plots'):
         fig, axes = plt.subplots(2, figsize=(12, 8))
-        timescale = np.arange(uploaded_data.shape[0])
-        axes[0].plot(timescale, uploaded_data)
+        timescale = np.arange(data.shape[0])
+        axes[0].plot(timescale, data)
         axes[0].set_title('Waveform')
         axes[0].set_xlim([0, 16000])
         
-        plot_spectrogram(training.get_spectrogram(uploaded_data), axes[1])
+        
+        plot_spectrogram(training.get_spectrogram(data), axes[1])
         axes[1].set_title('Spectrogram')
         
         st.pyplot(fig)
 
+    model_keras = tf.keras.models.load_model(r'C:\Users\Kidma\source\repos\deployingmodel\audio_commands_model_keras')
+
+    st.write(labels)
+
     if st.button('predict'):
-        
-        response = requests.post( 
-        "http://127.0.0.1:3000/classify",
-        headers={"content-type": "application/json"},
-        json=uploaded_data.tolist(),
-        ).json()
-        
-        st.write(type(response))
-        st.write(response)
+        input_data = training.preprocess_file(data)
+        output = model_keras(input)
         
         fig, ax = plt.subplots()
-        ax.bar(labels, tf.nn.softmax(response[0]))
+        ax.bar(labels, tf.nn.softmax(output[0]))
         ax.set_title(f'Predicted probs')
         
         st.pyplot(fig)
-        
-        
-        # audio_commands_model_runner = bentoml.keras.get(BENTO_MODEL_TAG).to_runner()
-        # audio_commands_model_runner.init_local()
-        # st.write(audio_commands_model_runner.run(input_data))

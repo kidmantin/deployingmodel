@@ -36,40 +36,47 @@ uploaded_file = st.file_uploader('audio of command')
 st.write(f'possible labels: {labels}')
 
 if uploaded_file is not None:
-    uploaded_data, samplerate = sf.read(io.BytesIO(uploaded_file.read()))
-    st.audio(uploaded_data, sample_rate=samplerate)
+    data, samplerate = sf.read(io.BytesIO(uploaded_file.read()))
+    st.audio(data, sample_rate=samplerate)
 
 
     if st.button('plots'):
         fig, axes = plt.subplots(2, figsize=(12, 8))
-        timescale = np.arange(uploaded_data.shape[0])
-        axes[0].plot(timescale, uploaded_data)
+        timescale = np.arange(data.shape[0])
+        axes[0].plot(timescale, data)
         axes[0].set_title('Waveform')
         axes[0].set_xlim([0, 16000])
         
-        plot_spectrogram(training.get_spectrogram(uploaded_data), axes[1])
+        plot_spectrogram(training.get_spectrogram(data), axes[1])
         axes[1].set_title('Spectrogram')
         
         st.pyplot(fig)
 
-    if st.button('predict'):
-        
-        response = requests.post( 
-        "http://127.0.0.1:3000/classify",
-        headers={"content-type": "application/json"},
-        json=uploaded_data.tolist(),
-        ).json()
-        
-        st.write(type(response))
-        st.write(response)
-        
-        fig, ax = plt.subplots()
-        ax.bar(labels, tf.nn.softmax(response[0]))
-        ax.set_title(f'Predicted probs')
-        
-        st.pyplot(fig)
-        
-        
-        # audio_commands_model_runner = bentoml.keras.get(BENTO_MODEL_TAG).to_runner()
-        # audio_commands_model_runner.init_local()
-        # st.write(audio_commands_model_runner.run(input_data))
+    # if st.button('predict'):
+    input_data = training.preprocess_file(data)
+    # output = model_keras(input_data)
+    
+    # st.write(type(output))
+    # st.write(output)
+    
+    # fig, ax = plt.subplots()
+    # ax.bar(labels, tf.nn.softmax(output[0]))
+    # ax.set_title(f'Predicted probs')
+    
+    # st.pyplot(fig)
+    
+    # response = requests.post(
+    # "http://127.0.0.1:3000/classify",
+    # headers={"content-type": "application/json"},
+    # data=input_data,
+    # )
+    
+    response = requests.post(
+    "http://127.0.0.1:3000/classify",
+    # headers={"content-type": "application/json"},
+    json=input_data.tolist(),
+    )
+    
+    # audio_commands_model_runner = bentoml.keras.get(BENTO_MODEL_TAG).to_runner()
+    # audio_commands_model_runner.init_local()
+    # st.write(audio_commands_model_runner.run(input_data))

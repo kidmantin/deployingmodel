@@ -120,6 +120,7 @@ def preprocess_file(waveform):
     spectrogram = get_spectrogram(waveform).numpy()
     return np.expand_dims(spectrogram, axis=0) # return in batched form
 
+
 def save_model(model, path):
     # keras:
     model.save(f'{path}_keras')

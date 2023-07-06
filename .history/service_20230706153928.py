@@ -42,8 +42,7 @@ svc = bentoml.Service("audio_commands_model", runners=[audio_commands_model_runn
 #     # return audio_commands_model_runner.predict.run(processed_input)
 #     return audio_commands_model_runner.run(processed_input) # np.ndarray
 
-
 @svc.api(input=bentoml.io.NumpyNdarray(), output=bentoml.io.NumpyNdarray())
 def classify(input_data: np.ndarray) -> np.ndarray:
-    processed_input = preprocess_file(input_data) # <class 'tensorflow.python.framework.ops.EagerTensor'>
+    processed_input = training.preprocess_file(input_data) # <class 'tensorflow.python.framework.ops.EagerTensor'>
     return audio_commands_model_runner.run(processed_input) # np.ndarray

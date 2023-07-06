@@ -116,9 +116,16 @@ def preprocess_dataset(files):
         num_parallel_calls=AUTOTUNE)
     return output_ds
 
+
+# def preprocess_file(waveform):
+#     spectrogram = get_spectrogram(waveform)
+#     return spectrogram
+
+
 def preprocess_file(waveform):
     spectrogram = get_spectrogram(waveform).numpy()
     return np.expand_dims(spectrogram, axis=0) # return in batched form
+
 
 def save_model(model, path):
     # keras:

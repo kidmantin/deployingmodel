@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
 import bentoml
+import training
 
 def get_spectrogram(waveform):
     # Zero-padding for an audio waveform with less than 16,000 samples.

@@ -53,6 +53,12 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
     if st.button('predict'):
+        # input_data = training.preprocess_file(data)
+        # output = model_keras(input_data)
+        
+        # audio_commands_model_runner = bentoml.keras.get(BENTO_MODEL_TAG).to_runner()
+        # audio_commands_model_runner.init_local()
+        # st.write(audio_commands_model_runner.run(input_data))
         
         response = requests.post( 
         "http://127.0.0.1:3000/classify",
@@ -68,8 +74,3 @@ if uploaded_file is not None:
         ax.set_title(f'Predicted probs')
         
         st.pyplot(fig)
-        
-        
-        # audio_commands_model_runner = bentoml.keras.get(BENTO_MODEL_TAG).to_runner()
-        # audio_commands_model_runner.init_local()
-        # st.write(audio_commands_model_runner.run(input_data))

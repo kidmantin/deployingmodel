@@ -53,21 +53,40 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
     if st.button('predict'):
+        # input_data = training.preprocess_file(data)
+        # output = model_keras(input_data)
         
-        response = requests.post( 
-        "http://127.0.0.1:3000/classify",
-        headers={"content-type": "application/json"},
-        json=uploaded_data.tolist(),
-        ).json()
+        # st.write(type(output))
+        # st.write(output)
         
-        st.write(type(response))
-        st.write(response)
+        # fig, ax = plt.subplots()
+        # ax.bar(labels, tf.nn.softmax(output[0]))
+        # ax.set_title(f'Predicted probs')
         
-        fig, ax = plt.subplots()
-        ax.bar(labels, tf.nn.softmax(response[0]))
-        ax.set_title(f'Predicted probs')
+        # st.pyplot(fig)
         
-        st.pyplot(fig)
+        # response = requests.post(
+        # "http://127.0.0.1:3000/classify",
+        # headers={"content-type": "application/json"},
+        # data=input_data,
+        # )
+        
+        st.write(type(uploaded_data))
+        
+        # response = requests.post( 
+        # "http://127.0.0.1:3000/classify",
+        # headers={"content-type": "application/json"},
+        # json=uploaded_data.tolist(),
+        # ).json()
+        
+        # st.write(type(response))
+        # st.write(response)
+        
+        # fig, ax = plt.subplots()
+        # ax.bar(labels, tf.nn.softmax(response[0]))
+        # ax.set_title(f'Predicted probs')
+        
+        # st.pyplot(fig)
         
         
         # audio_commands_model_runner = bentoml.keras.get(BENTO_MODEL_TAG).to_runner()

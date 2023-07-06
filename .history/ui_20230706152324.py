@@ -53,6 +53,23 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
     if st.button('predict'):
+        # input_data = training.preprocess_file(data)
+        # output = model_keras(input_data)
+        
+        # st.write(type(output))
+        # st.write(output)
+        
+        # fig, ax = plt.subplots()
+        # ax.bar(labels, tf.nn.softmax(output[0]))
+        # ax.set_title(f'Predicted probs')
+        
+        # st.pyplot(fig)
+        
+        # response = requests.post(
+        # "http://127.0.0.1:3000/classify",
+        # headers={"content-type": "application/json"},
+        # data=input_data,
+        # )
         
         response = requests.post( 
         "http://127.0.0.1:3000/classify",
