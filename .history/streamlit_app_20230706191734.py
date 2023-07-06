@@ -30,7 +30,7 @@ if uploaded_file is not None:
         axes[0].set_title('Waveform')
         axes[0].set_xlim([0, 16000])
         
-        plotting_funtions.plot_spectrogram(training.get_spectrogram(uploaded_data), axes[1])
+        plotting_functions.plot_spectrogram(training.get_spectrogram(uploaded_data), axes[1])
         axes[1].set_title('Spectrogram')
         
         st.pyplot(fig)
