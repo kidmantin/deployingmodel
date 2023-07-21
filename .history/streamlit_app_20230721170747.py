@@ -1,5 +1,6 @@
 import streamlit as st
 from audio_recorder_streamlit import audio_recorder
+from st_custom_components import st_audiorec
 import io
 import soundfile as sf
 import matplotlib.pyplot as plt
@@ -39,8 +40,8 @@ if uploaded_file is not None:
     if st.button('predict'):
         
         response = requests.post( 
-        # "http://127.0.0.1:3000/classify",
-        "https://audio-commands-787b5415843a.herokuapp.com/classify",
+        "http://127.0.0.1:3000/classify",
+        # "https://audio-commands-787b5415843a.herokuapp.com/classify",
         headers={"content-type": "application/json"},
         json=uploaded_data.tolist(),
         ).json()
@@ -83,8 +84,8 @@ if audio_data is not None:
     if st.button('predict_1'):
         
         response = requests.post( 
-        # "http://127.0.0.1:3000/classify",
-        "https://audio-commands-787b5415843a.herokuapp.com/classify",
+        "http://127.0.0.1:3000/classify",
+        # "https://audio-commands-787b5415843a.herokuapp.com/classify",
         headers={"content-type": "application/json"},
         json=voice_data_mono.tolist(),
         ).json()

@@ -1,5 +1,6 @@
 import streamlit as st
 from audio_recorder_streamlit import audio_recorder
+from st_custom_components import st_audiorec
 import io
 import soundfile as sf
 import matplotlib.pyplot as plt
