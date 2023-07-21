@@ -27,7 +27,7 @@ if audio_data is not None:
     voice_data_mono = voice_data_2channels[:, 0]
     st.audio(voice_data_mono, sample_rate=samplerate)
     
-    if st.button('plots'):
+    if st.button('plots_1'):
         fig, axes = plt.subplots(2, figsize=(12, 8))
         timescale = np.arange(voice_data_mono.shape[0])
         axes[0].plot(timescale, voice_data_mono)
@@ -39,7 +39,7 @@ if audio_data is not None:
         
         st.pyplot(fig)
         
-    if st.button('predict'):
+    if st.button('predict_1'):
         
         response = requests.post( 
         # "http://127.0.0.1:3000/classify",
