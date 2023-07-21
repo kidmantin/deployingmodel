@@ -1,8 +1,10 @@
-bentoml==1.0.23
+audio_recorder_streamlit==0.0.8
+bentoml==1.0.24
 ipython==8.7.0
 matplotlib==3.6.2
-numpy==1.24.3
+numpy==1.24.4
 pandas==1.5.2
+Requests==2.31.0
 seaborn==0.12.2
 soundfile==0.12.1
 streamlit==1.16.0
