@@ -12,7 +12,7 @@ import requests
 
 SAMPLE_RATE = 16000
 
-labels = ['down', 'go', 'left', 'no', 'right', 'stop', 'up', 'yes']
+labels = ['down', 'go', 'left', 'no', 'right', 'stop', 'up', 'yes'] 
 
 st.title('Label identifier')
 
@@ -20,7 +20,7 @@ st.write(f'possible labels: {labels}')
 
 # for microphone input
 audio_data = audio_recorder(text='Microphone input, audio will be recorded for 1 second', energy_threshold=(-1.0, 1.0),
-                             pause_threshold=1, sample_rate=SAMPLE_RATE)
+                            pause_threshold=1, sample_rate=SAMPLE_RATE)
 
 if audio_data is not None:
     voice_data_2channels, samplerate = sf.read(io.BytesIO(audio_data), frames=16000)

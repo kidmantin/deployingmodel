@@ -11,6 +11,7 @@ from tensorflow.keras import layers
 from tensorflow.keras import models
 from IPython import display
 
+
 DATASET_PATH = 'data/mini_speech_commands'
 BATCH_SIZE = 64
 SEED = 42
@@ -29,7 +30,8 @@ def download_data(path):
             'mini_speech_commands.zip',
             origin="http://storage.googleapis.com/download.tensorflow.org/data/mini_speech_commands.zip",
             extract=True,
-            cache_dir='.', cache_subdir='data')
+            cache_dir='.', cache_subdir='data'
+            )
     return data_dir
 
 
@@ -63,7 +65,8 @@ def decode_audio(audio_binary):
 def get_label(file_path):
     parts = tf.strings.split(
         input=file_path,
-        sep=os.path.sep)
+        sep=os.path.sep
+        )
     # Note: You'll use indexing here instead of tuple unpacking to enable this
     # to work in a TensorFlow graph.
     return parts[-2]
@@ -137,6 +140,7 @@ def main():
     for spectrogram, _ in train_ds.take(1):
         input_shape = spectrogram.shape
 
+    #batch and prefetch dataset before training
     train_ds = train_ds.batch(BATCH_SIZE).cache().prefetch(AUTOTUNE)
     val_ds = val_ds.batch(BATCH_SIZE).cache().prefetch(AUTOTUNE)
 
@@ -168,7 +172,7 @@ def main():
         layers.Dense(128, activation='relu'),
         layers.Dropout(0.5),
         layers.Dense(num_labels),
-    ])
+        ])
 
     model.compile(
         optimizer=tf.keras.optimizers.Adam(),
