@@ -182,7 +182,7 @@ def main():
 
     EPOCHS = 10
 
-    history = model.fit(
+    model.fit(
         train_ds,
         validation_data=val_ds,
         epochs=EPOCHS,
