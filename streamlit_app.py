@@ -50,6 +50,6 @@ if audio_data is not None:
         
         fig, ax = plt.subplots()
         ax.bar(labels, tf.nn.softmax(response[0]))
-        ax.set_title(f'Predicted probs, predicted label: {tf.argmax(tf.nn.softmax(response[0]))}')
+        ax.set_title(f'Predicted probs, predicted label: {labels[tf.argmax(tf.nn.softmax(response[0]))]}')
         
         st.pyplot(fig)
