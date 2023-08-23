@@ -1,6 +1,6 @@
 audio_recorder_streamlit==0.0.8
 bentoml==1.0.24
-ipython==8.7.0
+ipython>=8.10.0
 matplotlib==3.6.2
 numpy==1.24.4
 pandas==1.5.2
@@ -8,4 +8,4 @@ Requests==2.31.0
 seaborn==0.12.2
 soundfile==0.12.1
 streamlit==1.16.0
-tensorflow==2.10.0
+tensorflow>=2.11.1
